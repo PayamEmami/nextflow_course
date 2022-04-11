@@ -1,3 +1,0 @@
-"0","# Add a common class name for every chunks"
-"0","knitr::opts_chunk$set("
-"0","  echo = TRUE)"
