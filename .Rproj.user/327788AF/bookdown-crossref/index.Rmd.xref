@@ -24,4 +24,11 @@ h3:scope-process Scope process
 h3:scope-executor Scope executor
 h3:configuration-on-uppmax Configuration on UPPMAX
 h3:containers Containers
+h4:configuration-singularity-on-uppmax configuration singularity on Uppmax
+h3:config-profiles Config profiles
+h1:more-examples More examples:
+h2:two-processes Two processes
+h2:two-processes-including-collect Two processes including collect
+h2:two-processes-collect-accept-parameters-from-the-user Two processes, collect, accept parameters from the user
+h2:three-processes Three processes
 

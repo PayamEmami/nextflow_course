@@ -955,10 +955,260 @@ Now we can run it using?
 nextflow main_18.nf -c nextflow_18.config 
 ```
 
-The process is now running using a singularity container!OK! This is taking time! Use `Ctrl+c` to kill Nextflow! Then cancel all of your jobs!
+#### configuration singularity on Uppmax
+
+Can you combine the Singularity and Slurm together to run containers using slurm? What config file would you create?! How would you run the Nextflow pipeline? Remember to kill Nextflow! Then cancel all of your jobs after you are done!
 
 ```{bash, attr.source='.numberLines',eval=FALSE}
-scancel -u $USER -M snowy
+singularity.enabled = true
+process.container="metaboigniter/course_docker:v5"
+process.executor = 'slurm'
+process.clusterOptions = { "-A $params.project ${params.clusterOptions ?: ''}"}
 ```
 
 
+```{bash, attr.source='.numberLines',eval=FALSE}
+'/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML' )
+process featureFinder {
+echo true
+input:
+file x from mzMLFiles
+
+"echo processing $x"
+
+}
+```
+
+
+
+```{bash, attr.source='.numberLines',eval=FALSE}
+nextflow main_19.nf -c nextflow_19.config --project "uppmax2022-2-10" --clusterOptions "-M snowy" 
+```
+
+### Config profiles
+
+Configuration files can contain the definition of one or more `profiles`. A profile is a set of configuration attributes that can be activated/chosen when launching a pipeline execution by using the `-profile` command line option.
+
+Configuration profiles are defined by using the special scope profiles which group the attributes that belong to the same profile using a common prefix.
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+profiles { 
+
+    standard { #1
+        process.executor = 'local' #2
+    }
+
+    uppmax_singularity { #3
+process.executor = 'slurm' #4
+  	process.clusterOptions = { "-A $params.project ${params.clusterOptions ?: ''}"
+singularity.enabled = true #5
+ 	}
+}
+
+```
+
+In this example, we have created two profiles.
+
+1. `standard` uses `local` (#2) executor which means that the jobs will be running on the local environment if this profile is activated
+3. `uppmax_singularity` uses Slurm and Singularity for running jobs on UPPMAX. 
+
+Now if we want to run the pipeline on the local environment we use:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nextflow main.nf -profile standard
+```
+
+How would you run it if you wanted to run on UPPMAX?
+
+```{bash, attr.source='.numberLines',eval=FALSE}
+nextflow main.nf -profile uppmax_singularity --project "uppmax2022-2-10" --clusterOptions "-M snowy" 
+```
+
+# More examples:
+
+Here they are more examples of a bit more complex pipelines
+
+## Two processes
+
+As said before, you can connect two processes using channels. 
+
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+mzMLFiles = Channel.fromPath( '/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML' )
+process featureFinder {
+input:
+file x from mzMLFiles
+output:
+file "${x.baseName}.featureXML" into outputChannel #1
+
+"cp $x ${x.baseName}.featureXML"
+
+}
+
+// This process gets input from featureFinder
+process someotherprocess {
+echo true
+input:
+file x from outputChannel #2
+
+"echo I got $x from featureFinder"
+
+}
+
+```
+
+In this example, the process `featureFinder` defines an output channel (#1) which is then read by `someotherprocess` to do further processing.
+
+
+Create a file called `main_20.nf`
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nano main_20.nf
+```
+
+Copy the above code to it. Save the file `(Ctrl+o enter)` and exit `(Ctrl+x)`
+Now run 
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nextflow main_20.nf
+```
+
+## Two processes including collect
+
+As mentioned above we can instruct Nextflow to emit all the content of a channel in a single emittion so that the downstream process will receive all the content at once using the `collect` operator. For example
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+mzMLFiles = Channel.fromPath( '/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML' )
+process featureFinder {
+input:
+file x from mzMLFiles
+output:
+file "${x.baseName}.featureXML" into outputChannel
+"cp $x ${x.baseName}.featureXML"
+
+}
+
+// This process gets input from featureFinder
+process someotherprocess {
+echo true
+input:
+file x from outputChannel.collect() #1
+
+"echo I got $x from featureFinder"
+
+}
+```
+
+In this example, the process `featureFinder` defines an output channel (#1) which is then read by `someotherprocess` to do further processing. However, `someotherprocess` now has all the data at once because.
+
+
+Create a file called `main_21.nf`
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nano main_21.nf
+```
+
+Copy the above code to it. Save the file `(Ctrl+o enter)` and exit `(Ctrl+x)`
+Now run 
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nextflow main_21.nf
+```
+
+What is the difference between this and the previous example?
+
+## Two processes, collect, accept parameters from the user
+
+We can now try to even accept some parameters from the user.
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+mzMLFiles = Channel.fromPath(params.inputmzml) #1
+process featureFinder {
+input:
+file x from mzMLFiles
+output:
+file "${x.baseName}.featureXML" into outputChannel
+"cp $x ${x.baseName}.featureXML"
+
+}
+
+// This process gets input from featureFinder
+process someotherprocess {
+echo true
+input:
+file x from outputChannel.collect()
+
+"echo I got $x from featureFinder"
+
+}
+
+```
+
+In this example, we create the `mzMLFiles` channel using the input we are getting from the user (#1).
+
+Create a file called `main_22.nf`
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nano main_22.nf
+```
+
+Copy the above code to it. Save the file `(Ctrl+o enter)` and exit `(Ctrl+x)`
+Now run:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nextflow main_22.nf --inputmzml "/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML"
+```
+
+Notice how we are sending parameters to the workflow!
+
+## Three processes
+
+Similarly we can create as many as processes we would like to. For example three:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+mzMLFiles = Channel.fromPath(params.inputmzml) #1
+process justcopy {
+input:
+file x from mzMLFiles
+output:
+file "${x.baseName}.featureXML" into outputChannel
+"cp $x ${x.baseName}.featureXML"
+}
+// This process gets input from justcopy
+process someotherprocess {
+echo true
+input:
+file x from outputChannel.collect()
+output:
+file "QC.txt" into finalchannel
+"""
+echo "${params.qc} percent!">> QC.txt 
+"""
+}
+// This process gets input from someotherprocess
+process lastone {
+echo true
+input:
+file x from finalchannel
+"""
+(echo "Quality was:" ;cat $x)
+"""
+}
+
+```
+
+In this example, we create the `mzMLFiles` channel using the input we are getting from the user (#1). We are also getting another parameter from the user. Can you find it?
+
+
+Create a file called `main_23.nf`
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nano main_23.nf
+```
+
+Copy the above code to it. Save the file `(Ctrl+o enter)` and exit `(Ctrl+x)`
+Now run:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nextflow main_23.nf --inputmzml "/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML" --qc 100
+```
