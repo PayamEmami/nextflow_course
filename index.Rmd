@@ -23,6 +23,7 @@ knitr::opts_chunk$set(
   echo = TRUE)
 ```
 ```{r htmlTemp3, echo=FALSE, eval=TRUE}
+install.packages("readr")
 codejs <- readr::read_lines("js/codefolding.js")
 collapsejs <- readr::read_lines("js/collapse.js")
 transitionjs <- readr::read_lines("js/transition.js")
