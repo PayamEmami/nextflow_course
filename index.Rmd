@@ -691,3 +691,274 @@ Try to run this example and compare the results to collect!
 # Configuration file
 
 
+When a pipeline script is launched, Nextflow looks for configuration files in multiple locations. Since each configuration file can contain conflicting settings, the sources are ranked to decide which settings to are applied. All possible configuration sources are reported below, listed in order of priority:
+
+1. Parameters specified on the command line (--something value)
+
+2. Parameters provided using the -params-file option
+
+3. Config file specified using the -c my_config option
+
+4. The config file named nextflow.config in the current directory
+
+5. The config file named nextflow.config in the workflow project directory
+
+6. The config file $HOME/.nextflow/config
+
+7. Values defined within the pipeline script itself (e.g. main.nf)
+
+It is easy to write the config file. It is just a text file wherein you can assign variables. These variables are readily available in the pipeline to use. The comments should be written using `//`
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+propertyOne = 'world'
+anotherProp = "Hello $propertyOne"
+customPath = "$PATH:/my/app/folder"
+// comment!
+
+```
+
+Let's try this config file!
+
+Create a file called `nextflow_14.config` and put the above code in it. 
+
+Create a file called `main_14.nf` and put the following code in it:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+println propertyOne
+println anotherProp
+println customPath
+```
+
+Save the file (Ctrl+o enter) and exit (Ctrl+x)
+Now run the following: 
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nextflow main_14.nf -c nextflow_14.config
+```
+
+## Config scopes
+
+Configuration settings can be organized in different scopes by dot prefixing the property names with a scope identifier or grouping the properties in the same scope using the curly brackets notation.
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+alpha.x  = 1
+alpha.y  = 'string value..'
+
+beta {
+     p = 2
+     q = 'another string ..'
+}
+```
+
+There are many important default scopes in Nextflow. You can have a look [here](https://www.nextflow.io/docs/latest/config.html#config-scopes).
+
+### Scope params
+
+The params scope allows you to define parameters that will be accessible in the pipeline script. Simply prefix the parameter names with the params scope or surround them by curly brackets. 
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+params {
+
+   mzMLFilesInput = '/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML' #1
+  ppm_input=10 #2
+
+}
+
+```
+
+In the example above, we define two parameters:
+
+1. `mzMLFilesInput` which points to the location our input files.
+2. `ppm_input` which is used in a bash script
+
+We can then use these two parameters anywhere inside our pipeline. For example:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+mzMLFiles = Channel.fromPath( params.mzMLFilesInput ) #1
+process featureFinder {
+echo true
+input:
+file x from mzMLFiles
+
+"echo processing $x with $params.ppm_input ppm" #2
+
+}
+```
+
+In this example:
+1. We created a file channel using our parameter `params.mzMLFilesInput`
+2. We accessed value of `ppm_input` using `$param` before the name of the parameter. 
+
+Try the above code! Create two files, `main_15.nf`  and `nextflow_15.config`. and run the above example!
+
+Pipeline script can use an arbitrary number of parameters that can be *overridden* either using the command line or the Nextflow configuration file. Any script parameter can be specified on the command line prefixing the parameter name with double dash characters e.g.:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nextflow run <my script> --foo Hello
+```
+
+Then, the parameter can be accessed in the pipeline script using the params.foo identifier.
+
+How would you run the above script so that `ppm_input` is send to the pipeline the command line? 
+
+```{bash, attr.source='.numberLines',eval=FALSE}
+nextflow run main_15.nf -c  nextflow_15.config --ppm_input 20
+```
+
+What happend with the default value of `ppm_input`?
+
+### Scope process
+
+The process configuration scope allows you to provide the default configuration for the processes in your pipeline.
+
+You can specify here any property described in the [process directive](https://www.nextflow.io/docs/latest/process.html#process-directives) and the executor sections. For example,
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+process {
+executor = 'slurm' #1
+  clusterOptions = { "-A $params.project ${params.clusterOptions ?: ''}" } #2
+}
+```
+
+In the example above:
+1. We set the `executor` to `slurm` so that all the jobs will be send to `slurm`
+2. We set some addition parameters for example `-A` for setting the project ID and `clusterOptions` for additional arguments
+
+
+### Scope executor
+
+The executor configuration scope allows you to set the optional executor settings.
+The executor settings can be defined as shown below:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+executor {
+    name = 'slurm'
+    queueSize = 200
+    clusterOptions = { "-A $params.project ${params.clusterOptions ?: ''}" }
+}
+```
+
+When using two (or more) different executors in your pipeline, you can specify their settings separately by prefixing the executor name with the symbol `$` and using it as special scope identifier. For example:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+executor {
+  $slurm {
+    queueSize = 200
+    clusterOptions = { "-A $params.project ${params.clusterOptions ?: ''}" }
+  }
+
+  $local {
+      cpus = 8
+      memory = '32 GB'
+  }
+}
+```
+
+### Configuration on UPPMAX
+
+UPPMAX uses slurm job scheduler. We can use the process scope to instruct Nextflow to use slurm
+
+Create a file called `nextflow_17.config` with the following content:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+process.executor = 'slurm'
+process.clusterOptions = { "-A $params.project ${params.clusterOptions ?: ''}"}
+```
+
+Create a file called `main_17.nf`
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+// This is main.nf
+mzMLFiles = Channel.fromPath( '/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML' )
+process featureFinder {
+echo true
+input:
+file x from mzMLFiles
+
+"echo processing $x"
+
+}
+```
+
+You can now run the pipeline using
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nextflow main_17.nf -c nextflow_17.config --project "uppmax2022-2-10" --clusterOptions "-M snowy" 
+```
+
+The process is now running on Uppmax.
+OK! This is probably going to take time. Use `Ctrl+c` to kill Nextflow! Then cancel all of your jobs!
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+scancel -u $USER -M snowy
+```
+
+
+### Containers
+
+The docker configuration scope controls how Docker containers are executed by Nextflow
+
+For example 
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+process.container = 'nextflow/examples' #1
+
+docker {
+    enabled = true #2
+}
+```
+
+In the example above:
+
+1. We first set `process.container` to the location of the Docker image for example in Dockerhub.
+2. We enable Docker. 
+
+All the processes will then use Docker container.
+
+Similarly we can use singularity. 
+
+Please be aware that if you Nextflow to use a Docker image and convert to singularity image. This process will take time. In order to save you time we have already done the conversion. To use what we have built, first run the following command:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+export NXF_SINGULARITY_CACHEDIR=/crex/proj/uppmax2022-2-10/metabolomics/singularity
+```
+
+The above command will set the location of the image for Nextflow. 
+
+We can later create a file named `nextflow_18.config` with the following content
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+singularity.enabled = true #1
+process.container="metaboigniter/course_docker:v5" #2
+```
+
+1. Instruct Nextflow to use Singularity
+2. Sets the name of the image
+
+We can now create another file ` main_18.nf` with the following content:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+mzMLFiles = Channel.fromPath( '/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML' )
+process featureFinder {
+echo true
+input:
+file x from mzMLFiles
+
+"echo processing $x"
+
+}
+```
+
+Now we can run it using?
+
+```{bash, attr.source='.numberLines',eval=FALSE}
+nextflow main_18.nf -c nextflow_18.config 
+```
+
+The process is now running using a singularity container!OK! This is taking time! Use `Ctrl+c` to kill Nextflow! Then cancel all of your jobs!
+
+```{bash, attr.source='.numberLines',eval=FALSE}
+scancel -u $USER -M snowy
+```
+
+
