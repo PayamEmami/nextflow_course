@@ -3,15 +3,12 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Introduction to Nextflow!</a></li>
+        <li><a href="./">Introduction to Nextflow</a></li>
       after: |
-        
-    edit: https://github.com/USERNAME/REPO/edit/BRANCH/%s
+        <li>Payam Emami ( <li><a href="https://www.nbis.se/">National Bioinformatics Infrastructure Sweden</a></li>)</li>
     download: ["pdf", "epub"]
 bookdown::pdf_book:
-  includes:
-    in_header: preamble.tex
   latex_engine: xelatex
-  citation_package: natbib
+  css: style.css
   keep_tex: yes
 bookdown::epub_book: default
