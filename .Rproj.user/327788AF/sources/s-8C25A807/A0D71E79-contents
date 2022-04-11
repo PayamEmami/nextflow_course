@@ -1,0 +1,140 @@
+--- 
+title: "Introduction to Nextflow"
+author: "Payam Emami"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+description: |
+ This is a short tutorial about Nextflow. 
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+output:
+  bookdown::html_document2:
+    includes:
+      in_header: header.html
+  bookdown::gitbook:
+    includes:
+      in_header: header.html
+---
+
+```{r setup, include=FALSE}
+# Add a common class name for every chunks
+knitr::opts_chunk$set(
+  echo = TRUE)
+```
+```{r htmlTemp3, echo=FALSE, eval=TRUE}
+codejs <- readr::read_lines("js/codefolding.js")
+collapsejs <- readr::read_lines("js/collapse.js")
+transitionjs <- readr::read_lines("js/transition.js")
+
+htmlhead <- 
+  paste('
+<script>',
+paste(transitionjs, collapse = "\n"),
+'</script>
+<script>',
+paste(collapsejs, collapse = "\n"),
+'</script>
+<script>',
+paste(codejs, collapse = "\n"),
+'</script>
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+.row { display: flex; }
+.collapse { display: none; }
+.in { display:block }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "hide");
+});
+</script>
+', sep = "\n")
+
+readr::write_lines(htmlhead, path = "header.html")
+```
+
+# Introduction
+
+Welcome to this short tutorial on Nextflow. We are going to walk through some of the functionalities of this powerful workflow engine. More specifically we are going to do some hands-on work on processes, channels and operators. We are also going to look into how to configure Nextflow to run on different platforms. But before moving forward, we need to set up the environment for using Nextflow. 
+
+## Setting up the environment
+
+We are going to use UPPMAX for doing most of the handson work. 
+
+First ssh to UPPMAX
+
+```
+ssh -AX youusername@rackham.uppmax.uu.se
+```
+
+Make a directory in your user space (only if you have not done before)
+
+```
+mkdir -p /crex/proj/uppmax2022-2-10/nobackup/$USER/nextflow_lab1
+```
+
+Navigate to the folder you have created
+
+```
+cd /crex/proj/uppmax2022-2-10/nobackup/$USER/nextflow_lab1
+```
+
+Load Nexflow
+
+```
+module load bioinfo-tools
+module load Nextflow/20.10.0
+```
+
+If because of any reason, you cannot use UPPMAX, Nextflow can be installed on any POSIX compatible system for example Linux, OS X, Windows Subsystem for Linux. Head to [asdasd](https://www.nextflow.io/docs/latest/getstarted.html#installation)
+
+```{r attr.source='.numberLines',eval=FALSE, class.source="Rchunk"}
+println "Hello, World!" #1
+ 
+x = 1 
+println x \\asd 1
+ 
+x = new java.util.Date()
+println x
+ 
+x = -3.1499392
+println x
+ 
+x = false
+println x
+ 
+x = "Hi"
+println x
+ 
+square = { it * it }
+println square(9)
+ 
+printMapClosure = { key, value ->
+   println "$key = $value"
+}
+[ "Yue" : "Wu", "Mark" : "Williams", "Sudha" : "Kumari" ].each(printMapClosure)
+```
+
+# R Markdown2
+
+```{r plot}
+plot(cars)
+```
+
+<!--chapter:end:index.Rmd-->
+
+# Hello bookdown 
+
+All chapters start with a first-level heading followed by your chapter title, like the line above. There should be only one first-level heading (`#`) per .Rmd file.
+
+## A section
+
+All chapter sections start with a second-level (`##`) or higher heading followed by your section title, like the sections above and below here. You can have as many as you want within a chapter.
+
+### An unnumbered section {-}
+
+Chapters and sections are numbered by default. To un-number a heading, add a `{.unnumbered}` or the shorter `{-}` at the end of the heading, like in this section.
+
+<!--chapter:end:01-intro.Rmd-->
+

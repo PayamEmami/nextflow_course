@@ -1,0 +1,21 @@
+h1:introduction Introduction
+h2:setting-up-the-environment Setting up the environment
+h1:basic-concepts Basic concepts
+h2:nextflow-scripting Nextflow scripting
+h2:processes-and-channels Processes and channels
+h1:channels Channels
+h2:of of
+h2:frompath fromPath
+h1:processes Processes
+h2:scriptshellexec script|shell|exec
+h2:input input
+h3:input-each input each
+h2:output Output
+h2:directives Directives
+h3:publishdir publishDir
+h3:tag tag
+h1:operators Operators
+h2:collect Collect
+h2:flatten flatten
+h1:configuration-file Configuration file
+
