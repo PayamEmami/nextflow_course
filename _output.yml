@@ -3,7 +3,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Introduction to Nextflow</a></li>
+        <li><a href="./">Introduction to Nextflow!</a></li>
       after: |
         
     edit: https://github.com/USERNAME/REPO/edit/BRANCH/%s
