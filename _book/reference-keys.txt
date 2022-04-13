@@ -31,3 +31,7 @@ two-processes
 two-processes-including-collect
 two-processes-collect-accept-parameters-from-the-user
 three-processes
+part-1
+part-2
+assignment-1-build-an-openms-pipeline
+assignment-2-optional-gives-extra-points

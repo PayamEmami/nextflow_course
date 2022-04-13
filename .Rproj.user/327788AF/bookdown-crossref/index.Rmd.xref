@@ -32,9 +32,9 @@ h2:two-processes-including-collect Two processes including collect
 h2:two-processes-collect-accept-parameters-from-the-user Two processes, collect, accept parameters from the user
 h2:three-processes Three processes
 h1:nextflow-assigments Nextflow assigments
-h1:set-up-the-environment Set up the environment
+h2:set-up-the-environment Set up the environment
 h2:part-1 Part 1
 h2:part-2 Part 2
-h2:assignment-1-build-an-openms-pipeline Assignment 1 (Build an OpenMS pipeline)
-h2:assignment-2-optional-gives-extra-points Assignment 2 (optional, gives extra points)
+h3:assignment-1-build-an-openms-pipeline Assignment 1 (Build an OpenMS pipeline)
+h3:assignment-2-optional-gives-extra-points Assignment 2 (optional, gives extra points)
 
