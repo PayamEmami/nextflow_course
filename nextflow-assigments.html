@@ -23,7 +23,7 @@
 <meta name="author" content="Payam Emami" />
 
 
-<meta name="date" content="2022-04-11" />
+<meta name="date" content="2022-04-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="more-examples.html"/>
-<link rel="next" href="set-up-the-environment.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -530,12 +530,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.3" data-path="more-examples.html"><a href="more-examples.html#two-processes-collect-accept-parameters-from-the-user"><i class="fa fa-check"></i><b>7.3</b> Two processes, collect, accept parameters from the user<span></span></a></li>
 <li class="chapter" data-level="7.4" data-path="more-examples.html"><a href="more-examples.html#three-processes"><i class="fa fa-check"></i><b>7.4</b> Three processes<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="nextflow-assigments.html"><a href="nextflow-assigments.html"><i class="fa fa-check"></i><b>8</b> Nextflow assigments<span></span></a></li>
-<li class="chapter" data-level="9" data-path="set-up-the-environment.html"><a href="set-up-the-environment.html"><i class="fa fa-check"></i><b>9</b> Set up the environment<span></span></a><ul>
-<li class="chapter" data-level="9.1" data-path="set-up-the-environment.html"><a href="set-up-the-environment.html#part-1"><i class="fa fa-check"></i><b>9.1</b> Part 1<span></span></a></li>
-<li class="chapter" data-level="9.2" data-path="set-up-the-environment.html"><a href="set-up-the-environment.html#part-2"><i class="fa fa-check"></i><b>9.2</b> Part 2<span></span></a></li>
-<li class="chapter" data-level="9.3" data-path="set-up-the-environment.html"><a href="set-up-the-environment.html#assignment-1-build-an-openms-pipeline"><i class="fa fa-check"></i><b>9.3</b> Assignment 1 (Build an OpenMS pipeline)<span></span></a></li>
-<li class="chapter" data-level="9.4" data-path="set-up-the-environment.html"><a href="set-up-the-environment.html#assignment-2-optional-gives-extra-points"><i class="fa fa-check"></i><b>9.4</b> Assignment 2 (optional, gives extra points)<span></span></a></li>
+<li class="chapter" data-level="8" data-path="nextflow-assigments.html"><a href="nextflow-assigments.html"><i class="fa fa-check"></i><b>8</b> Nextflow assigments<span></span></a><ul>
+<li class="chapter" data-level="8.1" data-path="nextflow-assigments.html"><a href="nextflow-assigments.html#set-up-the-environment"><i class="fa fa-check"></i><b>8.1</b> Set up the environment<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="nextflow-assigments.html"><a href="nextflow-assigments.html#part-1"><i class="fa fa-check"></i><b>8.2</b> Part 1<span></span></a></li>
+<li class="chapter" data-level="8.3" data-path="nextflow-assigments.html"><a href="nextflow-assigments.html#part-2"><i class="fa fa-check"></i><b>8.3</b> Part 2<span></span></a><ul>
+<li class="chapter" data-level="8.3.1" data-path="nextflow-assigments.html"><a href="nextflow-assigments.html#assignment-1-build-an-openms-pipeline"><i class="fa fa-check"></i><b>8.3.1</b> Assignment 1 (Build an OpenMS pipeline)<span></span></a></li>
+<li class="chapter" data-level="8.3.2" data-path="nextflow-assigments.html"><a href="nextflow-assigments.html#assignment-2-optional-gives-extra-points"><i class="fa fa-check"></i><b>8.3.2</b> Assignment 2 (optional, gives extra points)<span></span></a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li>Payam Emami ( <li><a href="https://www.nbis.se/">National Bioinformatics Infrastructure Sweden</a></li>)</li>
@@ -559,14 +560,151 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="nextflow-assigments" class="section level1 hasAnchor">
 <h1><span class="header-section-number">Chapter 8</span> Nextflow assigments<a href="nextflow-assigments.html#nextflow-assigments" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Here are two assignments for finish the Nextflow part of the course.</p>
+<div id="set-up-the-environment" class="section level2 hasAnchor">
+<h2><span class="header-section-number">8.1</span> Set up the environment<a href="nextflow-assigments.html#set-up-the-environment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You need to do this every time you start the lap…</p>
+<p>First ssh to Uppmax</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb85-1"><a href="nextflow-assigments.html#cb85-1"></a><span class="fu">ssh</span> -AX youusername@rackham.uppmax.uu.se</span></code></pre></div>
+<p>Make a directory in your userspace</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb86-1"><a href="nextflow-assigments.html#cb86-1"></a><span class="fu">mkdir</span> -p /crex/proj/uppmax2022-2-10/nobackup/<span class="va">$USER</span>/nextflow_lab</span></code></pre></div>
+<p>Navigate to the folder you have created</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb87-1"><a href="nextflow-assigments.html#cb87-1"></a><span class="bu">cd</span> /crex/proj/uppmax2022-2-10/nobackup/<span class="va">$USER</span>/nextflow_lab</span></code></pre></div>
+<p>Load Nexflow</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb88-1"><a href="nextflow-assigments.html#cb88-1"></a><span class="ex">module</span> load bioinfo-tools</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb89-1"><a href="nextflow-assigments.html#cb89-1"></a><span class="ex">module</span> load Nextflow/20.10.0</span></code></pre></div>
+<p>Fix some environmental variables:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb90-1"><a href="nextflow-assigments.html#cb90-1"></a><span class="bu">export</span> <span class="va">NXF_SINGULARITY_CACHEDIR=</span>/crex/proj/uppmax2022-2-10/metabolomics/singularity</span></code></pre></div>
+<p>You are now ready to start!</p>
+<p><strong>The container for both of the following parts is “metaboigniter/course_docker:v5” and we want to use SLURM to run the jobs. </strong></p>
+<p><strong>IMPORTANT: DO NOT remove, change, add anything here and in its subfolders: </strong> /crex/proj/uppmax2022-2-10/metabolomics</p>
+<p><em>For part 1, you should send us the modified main.nf and nextflow.config. For part 2, you will have to send us a main.nf, nextflow.config and a PCA plot!</em></p>
+</div>
+<div id="part-1" class="section level2 hasAnchor">
+<h2><span class="header-section-number">8.2</span> Part 1<a href="nextflow-assigments.html#part-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this part, we will run a small pipeline together. The pipeline is already in a folder that you need to copy to your personal space. We assume that you are now in <code>nextflow_lab</code></p>
+<p>Copy the pipeline and the configuration file</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb91-1"><a href="nextflow-assigments.html#cb91-1"></a><span class="fu">cp</span> -r /crex/proj/uppmax20212-2-10/metabolomics/xcms_pipeline .</span></code></pre></div>
+<p>Now you have all the required files in your folder. Try to run the pipeline</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb92-1"><a href="nextflow-assigments.html#cb92-1"></a><span class="bu">cd</span> xcms_pipeline </span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb93-1"><a href="nextflow-assigments.html#cb93-1"></a><span class="ex">nextflow</span> main.nf -profile uppmax --project <span class="st">&quot;uppmax2021-2-3&quot;</span> --clusterOptions <span class="st">&quot;-M snowy&quot;</span></span></code></pre></div>
+<p>You can open another terminal window and ssh to Uppmax and use jobinfo to see whether your jobs are running or not! If you realized that won’t run for some steps, it might be because of RAM, CPU, or running time. In the nextflow.config, you can change these parameters!</p>
+<p>Please remember that there is a high chance that Uppmax becomes very slow because the jobs are heavy. So Please consider canceling your jobs if you already know and have a feeling about how Uppmax runs your jobs</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb94-1"><a href="nextflow-assigments.html#cb94-1"></a><span class="ex">scancel</span> -u <span class="va">$USER</span> -M snowy</span></code></pre></div>
+<ul>
+<li>Exercise one: There are some hardcoded parameters part of the pipeline:
+<ul>
+<li><p>If process process_masstrace_detection_pos_xcms we have the following parameters:</p>
+<p><code>peakwidthLow=5</code></p>
+<p><code>peakwidthHigh=10</code></p>
+<p><code>noise=1000</code></p>
+<p><code>polarity=positive</code></p></li>
+</ul></li>
+</ul>
+<p><strong>Can you change the config file so the value of these parameters is set there and fetched here? How can the user pass these parameters to the pipeline? Show the command!</strong></p>
+<p>Tip: Your task is to modify the config file (nextflow.config) so that for example <strong>peakwidthLow=5</strong> can be replaced by <strong>peakwidthLow=$params.peakwidthLow </strong>and** <strong>the value of </strong>peakwidthLow** is set in the config file!</p>
+<p>Help me: <a href="https://www.nextflow.io/docs/latest/config.html#scope-params">params scope</a></p>
+</div>
+<div id="part-2" class="section level2 hasAnchor">
+<h2><span class="header-section-number">8.3</span> Part 2<a href="nextflow-assigments.html#part-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As talked before the pipeline in the part 1 does mass spectrometry data pre-processing using XCMS software suite. In this part of the exercise, you will need to build a pipeline from scratch that does the same thing using OpenMS. You can of course use the pipeline in part 1 as a template and try to modify it to do that.</p>
+<div id="assignment-1-build-an-openms-pipeline" class="section level3 hasAnchor">
+<h3><span class="header-section-number">8.3.1</span> Assignment 1 (Build an OpenMS pipeline)<a href="nextflow-assigments.html#assignment-1-build-an-openms-pipeline" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This is what you need to do</p>
+<ol style="list-style-type: decimal">
+<li>You will need an input channel that read *.mzML <strong>files</strong> from <code>/crex/proj/uppmax2021-2-3/metabolomics/mzMLData</code></li>
+<li>Since the process in this specific pipeline need a separate parameter file you will need three additional <strong>file</strong> channels
+<ol style="list-style-type: decimal">
+<li>The first one is used in the feature detection process and is located here: <code>/crex/proj/uppmax2021-2-3/metabolomics/openms_params/FeatureFinder.ini</code></li>
+<li>The second one is for the alignment process and is located here: <code>/crex/proj/uppmax2021-2-3/metabolomics/openms_params/featureAlignment.ini</code></li>
+<li>The third one is for the linker process and is located here: <code>/crex/proj/uppmax2021-2-3/metabolomics/openms_params/featureLinker.ini</code></li>
+</ol></li>
+</ol>
+<p><em>Help me: <a href="https://www.nextflow.io/docs/latest/process.html#input-of-files">File channels</a>, <a href="https://www.nextflow.io/docs/latest/channel.html#frompath">How to create file channels</a></em></p>
+<p>Now that we have our channels up and running, time to create four processes:</p>
+<ol style="list-style-type: decimal">
+<li>Let’s name the first process <code>process_masstrace_detection_pos_OpenMS</code>
+<ol style="list-style-type: decimal">
+<li>This process has two inputs:
+<ol style="list-style-type: decimal">
+<li>The first input is from the mzML files</li>
+<li>The second one is from** <strong>the</strong> feature detection** parameter file. Please remember that The second input should be a type of input that repeats for <strong>each</strong> of the mzML file emitted by the first channel</li>
+</ol></li>
+<li>The output for this process has the same <strong>baseName </strong>as input but it has “.featureXML” extension. The name of the output channel must be alignmentProcess</li>
+<li>And finally, the command needed to run is</li>
+</ol></li>
+</ol>
+<div class="sourceCode" id="cb95"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb95-1"><a href="nextflow-assigments.html#cb95-1"></a><span class="ex">FeatureFinderMetabo</span> -in inputVariable -out inputBaseName.featureXML -ini settingFIleVariable</span></code></pre></div>
+<p>Please note that you need to change <code>inputVariable</code>, <code>inputBaseName</code> and <code>settingFIleVariable</code>! Please also note that the inputs to this tool are given by <code>-in</code>, the outputs by -out and settings by <code>-ini</code>.</p>
+<p>Help me: <a href="https://www.nextflow.io/docs/latest/process.html">processes</a>, <a href="https://www.nextflow.io/docs/latest/process.html#input-repeaters">input each (file)</a>, <a href="https://www.nextflow.io/docs/latest/process.html#script">bash command</a></p>
+<ol start="2" style="list-style-type: decimal">
+<li>The second process is called <code>process_masstrace_alignment_pos_OpenMS</code>
+<ol start="4" style="list-style-type: decimal">
+<li>Similar to the previous process it will get two inputs:
+<ol start="3" style="list-style-type: decimal">
+<li>The first one is the output of <code>process_masstrace_detection_pos_OpenMS</code></li>
+<li>The second one is from the alignment parameter file. Similar to the previous one this input is also repeating!</li>
+</ol></li>
+<li>The output for this process has the same <code>baseName</code> as input but it has <code>.featureXML</code> extension. However, these files are in a different folder (let’s call it <code>out</code>). The output channel must be named <code>LinkerProcess</code></li>
+<li>The command needed is a bit different from the previous one:</li>
+</ol></li>
+</ol>
+<p>This command accepts ALL the mzML files at <strong>the same time</strong> (look at collect!) and outputs the same number of files. The inputs must be separated by space (remember the join operation?). The output is the same as input however you need to put the output in a different folder within the process! Think about a simple bash script. You create a folder and join the files in a way that they are written in a separate folder!</p>
+<p>Given three samples, x.mzML, y.mzML and z.mzML, an example of the command is like</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb96-1"><a href="nextflow-assigments.html#cb96-1"></a><span class="fu">mkdir</span> out</span>
+<span id="cb96-2"><a href="nextflow-assigments.html#cb96-2"></a><span class="ex">MapAlignerPoseClustering</span> -in x.mzML y.mzML z.mzML -out out/x.mzML out/y.mzML out/z.mzML -ini setting.ini</span></code></pre></div>
+<p><strong>Please remember the code above is just an example of a command you run in bash You will have to implement this using Nextflow!</strong></p>
+<p>Please also note that the inputs to this tool are given by <code>-in</code>, the outputs by <code>-out</code> and settings by <code>-ini</code>.</p>
+<p>Finally, this process needs quite a bit of RAM to go forward. Set the memory for this to probably around 10 GB or even more!</p>
+<p>Help me: <a href="https://www.nextflow.io/docs/latest/operator.html#collect">collect</a>, <a href="https://groups.google.com/g/nextflow/c/V7kKJzyZs98">joining in the process!</a>, <a href="https://www.nextflow.io/docs/latest/process.html#memory">memory</a></p>
+<ol start="3" style="list-style-type: decimal">
+<li>The third process is called <code>process_masstrace_linker_pos_OpenMS</code> and is used to link (merge) multiple files into a single file
+<ol start="7" style="list-style-type: decimal">
+<li>It will get two inputs:
+<ol start="5" style="list-style-type: decimal">
+<li>The output from the alignment</li>
+<li>The parameter file</li>
+</ol></li>
+<li>The output of this process is a single file and must be named “Aggregated.consensusXML” it will be sent over to a channel called “textExport”</li>
+<li>And the command:</li>
+</ol>
+This is similar to the previous step. You need to gather all the inputs separated by space (collect and join!). However, it will only output one file. Given the same three files above an example of the command would be:</li>
+</ol>
+<div class="sourceCode" id="cb97"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb97-1"><a href="nextflow-assigments.html#cb97-1"></a><span class="ex">FeatureLinkerUnlabeledQT</span> -in x.mzML y.mzML z.mzML -out Aggregated.consensusXML -ini setting.ini</span></code></pre></div>
+<p>Please also note that the inputs to this tool are given by <code>-in</code>, the outputs by -out and settings by <code>-ini</code>.</p>
+<p>Finally, this process needs quite a bit of RAM to go forward. Set the memory for this to probably around <code>10 GB</code> or even more!</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Finally the last step which takes the xml formatted output from the previous step and convert it into a csv file. Let’s call this process <code>process_masstrace_exporter_pos_OpenMS</code>
+<ol start="10" style="list-style-type: decimal">
+<li>The input to the process is the output from the previous step</li>
+<li>The output is a single file and must be called <code>Aggregated_clean.csv</code> and sent over to a channel called <code>out</code></li>
+<li>To run the command: This process will run two commands the first one does the conversion and the second one the cleaning. We will only need the last output (<code>Aggregated_clean.csv</code>)</li>
+</ol></li>
+</ol>
+<div class="sourceCode" id="cb98"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb98-1"><a href="nextflow-assigments.html#cb98-1"></a><span class="ex">TextExporter</span> -in input -consensus:features Aggregated.csv</span>
+<span id="cb98-2"><a href="nextflow-assigments.html#cb98-2"></a><span class="ex">/usr/bin/readOpenMS.r</span> input=Aggregated.csv output=Aggregated_clean.csv</span></code></pre></div>
+<p>Please also note that the inputs to this tool are given by <code>-in</code>, the outputs by <code>-consensus:features</code>.</p>
+<p>Remember that this process should publish its result to a specific directory (your choice). It does that by symlink! Change the mode to copy if you want!</p>
+<p>Help me: <a href="https://www.nextflow.io/docs/latest/process.html#publishdir">publish the results</a></p>
+</div>
+<div id="assignment-2-optional-gives-extra-points" class="section level3 hasAnchor">
+<h3><span class="header-section-number">8.3.2</span> Assignment 2 (optional, gives extra points)<a href="nextflow-assigments.html#assignment-2-optional-gives-extra-points" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Given the output from the last step of the pipeline, do a PCA on the data. The output of the last step is a csv file (comma separated) and the first column is the header. The missing values are designated by NA.</p>
+<p>Can you add your script (PCA) as an extra node part of the pipeline? You don’t have to use containers, you can use conda or whatever you like! There are R and Python already available in the container, you can also use <a href="https://www.nextflow.io/docs/latest/process.html#conda">conda</a> or <a href="https://www.nextflow.io/docs/latest/process.html#module">modules</a></p>
+<p>If you don’t know what PCA is or how to do it, please let us know!</p>
+<p><strong>IMPORTANT: some time Uppmax file system might cause some of the processes to fail, if this happens, rerun the workflow with -resume option. This might actually pass the step that was previously shown as failed!</strong></p>
+<p><strong>If you encounter issues with Uppmax being way too slow or does not do anything, please let up know!</strong></p>
+
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="more-examples.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="set-up-the-environment.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="more-examples.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
