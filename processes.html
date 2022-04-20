@@ -612,15 +612,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li>Creates a variable and assign it to <code>database</code>.</li>
 <li>This is a directive that is setting the process to print the standard output. More on this later!</li>
-<li>Runs the bash command <code>cat</code> which prints the content of variable <code>db</code>. Note that the variables that you define outside of the process script can be accessed using <code>$</code> sign</li>
+<li>Runs the bash command <code>echo</code> which prints the content of variable <code>db</code>. Note that the variables that you define outside of the process script can be accessed using <code>$</code> sign</li>
 <li>This is identical to bash but using shell. To access the variable <code>db</code> we need to wrap in <code>!{}</code></li>
 </ol>
 <p>Please note that unless really needed try to use <code>bash</code>.</p>
-<p>Create a file called <code>main_5.nf</code></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb20-1"><a href="processes.html#cb20-1"></a><span class="fu">nano</span> main_5.nf</span></code></pre></div>
+<p>Create a file called <code>main_4.nf</code></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb20-1"><a href="processes.html#cb20-1"></a><span class="fu">nano</span> main_4.nf</span></code></pre></div>
 <p>Copy the above code to it. Save the file <code>(Ctrl+o enter)</code> and exit <code>(Ctrl+x)</code>
 Now run</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb21-1"><a href="processes.html#cb21-1"></a><span class="ex">nextflow</span> main_5.nf</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb21-1"><a href="processes.html#cb21-1"></a><span class="ex">nextflow</span> main_4.nf</span></code></pre></div>
 </div>
 <div id="input" class="section level2 hasAnchor">
 <h2><span class="header-section-number">4.2</span> input<a href="processes.html#input" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -673,7 +673,7 @@ Now run</p>
 </tr>
 </tbody>
 </table>
-<p>For example, here we are a channel and a process that gets an input the channel and prits the values.</p>
+<p>For example, here we are a channel and a process that gets an input the channel and prints the values.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb23-1"><a href="processes.html#cb23-1"></a><span class="ex">num</span> = Channel.from( 1, 2, 3 ) <span class="co">#1</span></span>
 <span id="cb23-2"><a href="processes.html#cb23-2"></a></span>
 <span id="cb23-3"><a href="processes.html#cb23-3"></a><span class="ex">process</span> basicExample {</span>
@@ -688,11 +688,11 @@ Now run</p>
 <li>Runs a simple echo command that writes the value to std out! Remember that to access the input we need to use <code>$x</code>.</li>
 </ol>
 <p>In the above example the process is executed three times, each time a value is received from the channel num and used to process the script.</p>
-<p>Create a file called <code>main_6.nf</code></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb24-1"><a href="processes.html#cb24-1"></a><span class="fu">nano</span> main_6.nf</span></code></pre></div>
+<p>Create a file called <code>main_5.nf</code></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb24-1"><a href="processes.html#cb24-1"></a><span class="fu">nano</span> main_5.nf</span></code></pre></div>
 <p>Copy the above code to it. Save the file <code>(Ctrl+o enter)</code> and exit <code>(Ctrl+x)</code>
 Now run</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb25-1"><a href="processes.html#cb25-1"></a><span class="ex">nextflow</span> main_6.nf</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb25-1"><a href="processes.html#cb25-1"></a><span class="ex">nextflow</span> main_5.nf</span></code></pre></div>
 <p>Can you create a workflow that reads all the files with <code>*.mzML</code> extension in a file channel and print their name in a process? Remember, this is a file channel!</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode numberSource bash numberLines"><code class="sourceCode bash"><span id="cb26-1"><a href="processes.html#cb26-1"></a><span class="ex">mzMLFiles</span> = Channel.fromPath( <span class="st">&#39;/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML&#39;</span> )</span>
 <span id="cb26-2"><a href="processes.html#cb26-2"></a></span>
@@ -706,10 +706,10 @@ Now run</p>
 <span id="cb26-10"><a href="processes.html#cb26-10"></a><span class="st">&quot;&quot;&quot;</span></span>
 <span id="cb26-11"><a href="processes.html#cb26-11"></a></span>
 <span id="cb26-12"><a href="processes.html#cb26-12"></a>}</span></code></pre></div>
-<p>Create a file called <code>main_7.nf</code> and put write the code.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb27-1"><a href="processes.html#cb27-1"></a><span class="fu">nano</span> main_7.nf</span></code></pre></div>
+<p>Create a file called <code>main_6.nf</code> and put write the code.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb27-1"><a href="processes.html#cb27-1"></a><span class="fu">nano</span> main_6.nf</span></code></pre></div>
 <p>Save the file (Ctrl+o enter) and exit (Ctrl+x). Now run</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb28-1"><a href="processes.html#cb28-1"></a><span class="ex">run</span> main_7.nf</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb28-1"><a href="processes.html#cb28-1"></a><span class="ex">nextflow</span> main_6.nf</span></code></pre></div>
 <div id="input-each" class="section level3 hasAnchor">
 <h3><span class="header-section-number">4.2.1</span> input each<a href="processes.html#input-each" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The each qualifier allows you to repeat the execution of a process for each item in a collection, every time a new data is received.</p>
@@ -732,11 +732,11 @@ Now run</p>
 <li>Define another input channel from the file channel</li>
 </ol>
 <p>In the above example every time a file (<code>y</code>) of <code>mzML</code> is received as input by the process, it executes three tasks running a <code>echo</code> with a different value for the x parameter. This is useful when you need to repeat the same task for a given set of parameters.</p>
-<p>Create a file called <code>main_8.nf</code></p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb30-1"><a href="processes.html#cb30-1"></a><span class="fu">nano</span> main_8.nf</span></code></pre></div>
+<p>Create a file called <code>main_7.nf</code></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb30-1"><a href="processes.html#cb30-1"></a><span class="fu">nano</span> main_7.nf</span></code></pre></div>
 <p>Copy the above code to it. Save the file <code>(Ctrl+o enter)</code> and exit <code>(Ctrl+x)</code>
 Now run</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb31-1"><a href="processes.html#cb31-1"></a><span class="ex">nextflow</span> main_8.nf</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb31-1"><a href="processes.html#cb31-1"></a><span class="ex">nextflow</span> main_7.nf</span></code></pre></div>
 </div>
 </div>
 <div id="output" class="section level2 hasAnchor">
@@ -804,11 +804,11 @@ Now run</p>
 <li>create output channel and put the output file in it. The output file is located under <code>output</code> directory. <code>${x.baseName}</code> gives the name of the file without extension.</li>
 <li>In the bash script, we first create an output folder We then copy the input to the output folder but change its extension. This is obviously a pretty useless command! But you can change this to a more meaningful one!</li>
 </ol>
-<p>Create a file called <code>main_9.nf</code></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb34-1"><a href="processes.html#cb34-1"></a><span class="fu">nano</span> main_9.nf</span></code></pre></div>
+<p>Create a file called <code>main_8.nf</code></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb34-1"><a href="processes.html#cb34-1"></a><span class="fu">nano</span> main_8.nf</span></code></pre></div>
 <p>Copy the above code to it. Save the file <code>(Ctrl+o enter)</code> and exit <code>(Ctrl+x)</code>
 Now run</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb35-1"><a href="processes.html#cb35-1"></a><span class="ex">nextflow</span> main_9.nf</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb35-1"><a href="processes.html#cb35-1"></a><span class="ex">nextflow</span> main_8.nf</span></code></pre></div>
 </div>
 <div id="directives" class="section level2 hasAnchor">
 <h2><span class="header-section-number">4.4</span> Directives<a href="processes.html#directives" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -863,10 +863,10 @@ Now run</p>
 <li><code>$y</code> in the tag, indicates that name of file from <code>mzMLFiles</code> should be used as tag.</li>
 </ol>
 <p>Create a file called <code>main_9.nf</code></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb39-1"><a href="processes.html#cb39-1"></a><span class="fu">nano</span> main_12.nf</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb39-1"><a href="processes.html#cb39-1"></a><span class="fu">nano</span> main_9.nf</span></code></pre></div>
 <p>Copy the above code to it. Save the file <code>(Ctrl+o enter)</code> and exit <code>(Ctrl+x)</code>
 Now run</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb40-1"><a href="processes.html#cb40-1"></a><span class="ex">nextflow</span> main_12.nf</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb40-1"><a href="processes.html#cb40-1"></a><span class="ex">nextflow</span> main_9.nf</span></code></pre></div>
 <p>What do you see? What is the difference to a process without a tag?</p>
 </div>
 </div>

@@ -568,11 +568,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb41"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb41-1"><a href="operators.html#cb41-1"></a><span class="ex">mzMLFiles</span> = Channel.fromPath( <span class="st">&#39;/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML&#39;</span> )</span>
 <span id="cb41-2"><a href="operators.html#cb41-2"></a><span class="ex">mzMLFiles.collect</span>()<span class="ex">.view</span>()</span></code></pre></div>
 <p>The above code, will get the files from the path and emit them all at once. You can try this and compare the results to when you don’t use collect.</p>
-<p>Create a file called <code>main_13.nf</code></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb42-1"><a href="operators.html#cb42-1"></a><span class="fu">nano</span> main_13.nf</span></code></pre></div>
+<p>Create a file called <code>main_10.nf</code></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb42-1"><a href="operators.html#cb42-1"></a><span class="fu">nano</span> main_10.nf</span></code></pre></div>
 <p>Copy the above code to it. Save the file <code>(Ctrl+o enter)</code> and exit <code>(Ctrl+x)</code>
 Now run</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb43-1"><a href="operators.html#cb43-1"></a><span class="ex">nextflow</span> main_13.nf</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb43-1"><a href="operators.html#cb43-1"></a><span class="ex">nextflow</span> main_10.nf</span></code></pre></div>
 <p>This operator can also be used inside the process. For example,</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb44-1"><a href="operators.html#cb44-1"></a><span class="ex">mzMLFiles</span> = Channel.fromPath( <span class="st">&#39;/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML&#39;</span> )</span>
 <span id="cb44-2"><a href="operators.html#cb44-2"></a><span class="ex">process</span> featureFinder {</span>
