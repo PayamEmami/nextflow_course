@@ -663,7 +663,6 @@ file x from mzMLFiles.collect() #1
 echo $x
 """  
 }
-outputChannel.view()
 
 ```
 
