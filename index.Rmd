@@ -1273,7 +1273,7 @@ In this part, we will run a small pipeline together. The pipeline is already in 
 Copy the pipeline and the configuration file
 
 ```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
-cp -r /crex/proj/uppmax20212-2-10/metabolomics/xcms_pipeline .
+cp -r /crex/proj/uppmax2022-2-10/metabolomics/xcms_pipeline .
 ```
 
 Now you have all the required files in your folder. Try to run the pipeline
@@ -1283,7 +1283,6 @@ cd xcms_pipeline
 ```
 
 ```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
-nextflow main.nf -profile uppmax --project "uppmax2021-2-3" --clusterOptions "-M snowy"
 ```
 
 You can open another terminal window and ssh to Uppmax and use jobinfo to see whether your jobs are running or not! If you realized that won’t run for some steps, it might be because of RAM, CPU, or running time. In the nextflow.config, you can change these parameters!
@@ -1328,11 +1327,10 @@ This is what you need to do
 
 
 
-1. You will need an input channel that read *.mzML **files** from `/crex/proj/uppmax2021-2-3/metabolomics/mzMLData`
 2. Since the process in this specific pipeline need a separate parameter file you will need three additional **file** channels
-    1. The first one is used in the feature detection process and is located here: `/crex/proj/uppmax2021-2-3/metabolomics/openms_params/FeatureFinder.ini`
-    2. The second one is for the alignment process and is located here: `/crex/proj/uppmax2021-2-3/metabolomics/openms_params/featureAlignment.ini`
-    3. The third one is for the linker process and is located here: `/crex/proj/uppmax2021-2-3/metabolomics/openms_params/featureLinker.ini`
+    1. The first one is used in the FeatureFinder process and is located here: `/crex/proj/uppmax2022-2-10/metabolomics/openms_params/FeatureFinder.ini`
+    2. The second one is for the alignment process and is located here: `/crex/proj/uppmax2022-2-10/metabolomics/openms_params/featureAlignment.ini`
+    3. The third one is for the linker process and is located here: `/crex/proj/uppmax2022-2-10/metabolomics/openms_params/featureLinker.ini`
 
 _Help me: [File channels](https://www.nextflow.io/docs/latest/process.html#input-of-files), [How to create file channels](https://www.nextflow.io/docs/latest/channel.html#frompath)_
 
@@ -1363,13 +1361,13 @@ Help me: [processes](https://www.nextflow.io/docs/latest/process.html), [input e
     5. The output for this process has the same `baseName` as input but it has `.featureXML` extension. However, these files are in a different folder (let’s call it `out`). The output channel must be named `LinkerProcess`
     6. The command needed is a bit different from the previous one:
 
-This command accepts ALL the mzML files at **the same time** (look at collect!) and outputs the same number of files. The inputs must be separated by space (remember the join operation?). The output is the same as input however you need to put the output in a different folder within the process! Think about a simple bash script. You create a folder and join the files in a way that they are written in a separate folder!  
+This command accepts ALL the featureXML files at **the same time** (look at collect!) and outputs the same number of files. The inputs must be separated by space (remember the join operation in the XCMS pipeline?). The output is the same as input however you need to put the output in a different folder within the process! Think about a simple bash script. You create a folder and join the files in a way that they are written in a separate folder!  
 
-Given three samples, x.mzML, y.mzML and z.mzML, an example of the command is like
+Given three samples, x.featureXML, y.featureXML and z.featureXML, an example of the command is like
 
 ```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
 mkdir out
-MapAlignerPoseClustering -in x.mzML y.mzML z.mzML -out out/x.mzML out/y.mzML out/z.mzML -ini setting.ini
+MapAlignerPoseClustering -in x.featureXML y.featureXML z.featureXMLL -out out/x.featureXMLL out/y.featureXML out/z.featureXML -ini setting.ini
 ```
 
 
@@ -1393,7 +1391,7 @@ Help me: [collect](https://www.nextflow.io/docs/latest/operator.html#collect), [
     This is similar to the previous step. You need to gather all the inputs separated by space (collect and join!). However, it will only output one file. Given the same three files above an example of the command would be:
 
 ```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
-FeatureLinkerUnlabeledQT -in x.mzML y.mzML z.mzML -out Aggregated.consensusXML -ini setting.ini
+FeatureLinkerUnlabeledQT -in x.featureXML y.featureXML z.featureXML -out Aggregated.consensusXML -ini setting.ini
 ```
 
 
@@ -1409,12 +1407,12 @@ Finally, this process needs quite a bit of RAM to go forward. Set the memory for
     12. To run the command: This process will run two commands the first one does the conversion and the second one the cleaning. We will only need the last output (`Aggregated_clean.csv`)
 
 ```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
-TextExporter -in input -consensus:features Aggregated.csv
-/usr/bin/readOpenMS.r input=Aggregated.csv output=Aggregated_clean.csv
+TextExporter -in input -out Aggregated.csv
+/usr/bin/readOpenMS.r input=Aggregated.csv output=Aggregated_table.csv
 ```
 
 
-Please also note that the inputs to this tool are given by `-in`, the outputs by `-consensus:features`.
+Please also note that the inputs to this tool are given by `-in`, the outputs by `-out`.
 
 Remember that this process should publish its result to a specific directory (your choice). It does that by symlink! Change the mode to copy if you want!
 
