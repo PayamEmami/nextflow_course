@@ -31,6 +31,7 @@ two-processes
 two-processes-including-collect
 two-processes-collect-accept-parameters-from-the-user
 three-processes
+resuming-the-pipeline-command-line-interface
 nextflow-assigments
 set-up-the-environment
 part-1

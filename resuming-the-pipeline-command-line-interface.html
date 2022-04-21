@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Channels | Introduction to Nextflow</title>
+  <title>Chapter 8 Resuming the pipeline (Command line interface) | Introduction to Nextflow</title>
   <meta name="description" content="This is a short tutorial about Nextflow." />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Channels | Introduction to Nextflow" />
+  <meta property="og:title" content="Chapter 8 Resuming the pipeline (Command line interface) | Introduction to Nextflow" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a short tutorial about Nextflow." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Channels | Introduction to Nextflow" />
+  <meta name="twitter:title" content="Chapter 8 Resuming the pipeline (Command line interface) | Introduction to Nextflow" />
   
   <meta name="twitter:description" content="This is a short tutorial about Nextflow." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="basic-concepts.html"/>
-<link rel="next" href="processes.html"/>
+<link rel="prev" href="more-examples.html"/>
+<link rel="next" href="nextflow-assigments.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -559,67 +559,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="channels" class="section level1 hasAnchor">
-<h1><span class="header-section-number">Chapter 3</span> Channels<a href="channels.html#channels" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>We start with <code>channels</code> as they are more resemble the variable in a typical programming language. Nextflow is based on the Dataflow programming model in which processes communicate through channels. Using these channels we can connect different processes together.</p>
-<p>There are two different types of channel in Nextflow:</p>
-<ol style="list-style-type: decimal">
-<li>A queue channel is a non-blocking unidirectional FIFO queue which connects two processes or operators. <em>The same queue channel cannot be used more than one time as</em></li>
-<li>A value channel a.k.a. singleton channel by definition is bound to a single value and it can be read unlimited times without consuming its content.</li>
-</ol>
-<p>We are going to focus on queue channels here. A queue channel is usually created using a factory method such as a from, fromPath, etc.</p>
-<div id="of" class="section level2 hasAnchor">
-<h2><span class="header-section-number">3.1</span> of<a href="channels.html#of" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The <code>of</code> method allows you to create a channel emitting any sequence of values that are specified as the method argument</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb12-1"><a href="channels.html#cb12-1"></a><span class="ex">println</span> <span class="st">&quot;Channel.of( 1, 3, 5, 7 ):&quot;</span></span>
-<span id="cb12-2"><a href="channels.html#cb12-2"></a><span class="ex">ch</span> = Channel.of( 1, 3, 5, 7 ) <span class="co">#1 </span></span>
-<span id="cb12-3"><a href="channels.html#cb12-3"></a><span class="ex">ch.view</span>()</span>
-<span id="cb12-4"><a href="channels.html#cb12-4"></a></span>
-<span id="cb12-5"><a href="channels.html#cb12-5"></a><span class="ex">println</span> <span class="st">&quot;Channel.of( [1, 3, 5, 7, 9]):&quot;</span></span>
-<span id="cb12-6"><a href="channels.html#cb12-6"></a><span class="ex">ch</span> = Channel.of( [1, 3, 5, 7, 9]) <span class="co">#2</span></span>
-<span id="cb12-7"><a href="channels.html#cb12-7"></a><span class="ex">ch.view</span>()</span></code></pre></div>
-<ol style="list-style-type: decimal">
-<li>Creates a channel from a sequence of values and set the name to ch</li>
-<li>Creates a channel from a list of values</li>
-</ol>
-<p>Create a file called <code>main_2.nf</code></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb13-1"><a href="channels.html#cb13-1"></a><span class="fu">nano</span> main_2.nf</span></code></pre></div>
-<p>Copy the above code to it. Save the file <code>(Ctrl+o enter)</code> and exit <code>(Ctrl+x)</code>
-Now run</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb14-1"><a href="channels.html#cb14-1"></a><span class="ex">nextflow</span> main_2.nf</span></code></pre></div>
-</div>
-<div id="frompath" class="section level2 hasAnchor">
-<h2><span class="header-section-number">3.2</span> fromPath<a href="channels.html#frompath" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>You can create a channel emitting one or more file paths by using the fromPath method and specifying a path string as an argument.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb15-1"><a href="channels.html#cb15-1"></a><span class="ex">//</span> single file</span>
-<span id="cb15-2"><a href="channels.html#cb15-2"></a><span class="ex">myFileChannel</span> = Channel.fromPath( <span class="st">&#39;/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/Blank10.mzML&#39;</span> ) <span class="co">#1</span></span>
-<span id="cb15-3"><a href="channels.html#cb15-3"></a><span class="ex">myFileChannel.view</span>()</span>
-<span id="cb15-4"><a href="channels.html#cb15-4"></a><span class="ex">//</span> multiple files</span>
-<span id="cb15-5"><a href="channels.html#cb15-5"></a><span class="ex">myFileChannel</span> = Channel.fromPath( <span class="st">&#39;/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.*&#39;</span> ) <span class="co">#2</span></span>
-<span id="cb15-6"><a href="channels.html#cb15-6"></a><span class="ex">myFileChannel.view</span>()</span>
-<span id="cb15-7"><a href="channels.html#cb15-7"></a><span class="ex">//</span> recursive multiple files</span>
-<span id="cb15-8"><a href="channels.html#cb15-8"></a><span class="ex">myFileChannel</span> = Channel.fromPath( <span class="st">&#39;/crex/proj/uppmax2022-2-10/metabolomics/**.*&#39;</span> ) <span class="co">#3</span></span>
-<span id="cb15-9"><a href="channels.html#cb15-9"></a><span class="ex">myFileChannel.view</span>()</span></code></pre></div>
-<ol style="list-style-type: decimal">
-<li>Creates a channel and binds to it a Path item referring the specified file.</li>
-<li>Whenever the <code>fromPath</code> argument contains a <code>*</code> or <code>?</code> wildcard character it is interpreted as a <code>glob</code> path matcher.</li>
-<li>Two asterisks, i.e. <code>**</code>, works like <code>*</code> but crosses directory boundaries.</li>
-</ol>
-<p>Create a file called <code>main_3.nf</code></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb16-1"><a href="channels.html#cb16-1"></a><span class="fu">nano</span> main_3.nf</span></code></pre></div>
-<p>Copy the above code to it. Save the file <code>(Ctrl+o enter)</code> and exit <code>(Ctrl+x)</code>
-Now run</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb17-1"><a href="channels.html#cb17-1"></a><span class="ex">nextflow</span> main_3.nf</span></code></pre></div>
-<p>There are many parameters as well as channel types that can be used for different purposes. Please check the (documentation)[<a href="https://www.nextflow.io/docs/latest/channel.html" class="uri">https://www.nextflow.io/docs/latest/channel.html</a>].</p>
-</div>
+<div id="resuming-the-pipeline-command-line-interface" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Chapter 8</span> Resuming the pipeline (Command line interface)<a href="resuming-the-pipeline-command-line-interface.html#resuming-the-pipeline-command-line-interface" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Nextflow provides a powerful command line interface for the execution pipelines.</p>
+<p>As we have seen before a general way of running Nextflow looks like:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb82-1"><a href="resuming-the-pipeline-command-line-interface.html#cb82-1"></a><span class="ex">nextflow</span> [options] COMMAND [arg...]</span></code></pre></div>
+<p>We often run the workflow using</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb83-1"><a href="resuming-the-pipeline-command-line-interface.html#cb83-1"></a><span class="ex">nextflow</span> main_18.nf --inputmzml <span class="st">&quot;/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML&quot;</span> --qc 100</span></code></pre></div>
+<p>However, when Nextflow is run it will automatically use its powerful <code>run</code> command. So the above code can actually be run using:</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb84-1"><a href="resuming-the-pipeline-command-line-interface.html#cb84-1"></a><span class="ex">nextflow</span> run main_18.nf --inputmzml <span class="st">&quot;/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML&quot;</span> --qc 100</span></code></pre></div>
+<p>The <code>run</code> command has several options that can be seen <a href="https://www.nextflow.io/docs/latest/cli.html#run">here</a></p>
+<p>One the most important option is <code>resume</code>. This option executes the script using the cached results, useful to continue executions that was stopped by an error.</p>
+<p>So if we imagine the above pipeline fails for example because of an error in one of the processes, after resolving the error, we can run the workflow using:</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode numberSource bash nohide numberLines"><code class="sourceCode bash"><span id="cb85-1"><a href="resuming-the-pipeline-command-line-interface.html#cb85-1"></a><span class="ex">nextflow</span> run main_18.nf -resume --inputmzml <span class="st">&quot;/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML&quot;</span> --qc 100</span></code></pre></div>
+<p>Using this command, the already successfully executed processes will not be rerun. So the pipeline will continue from where it failed last time.</p>
+<p>You can see the full description of Nextflow CLI <a href="https://www.nextflow.io/docs/latest/cli.html">here</a></p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="basic-concepts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="processes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="more-examples.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="nextflow-assigments.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
