@@ -1193,7 +1193,41 @@ Now run:
 nextflow main_18.nf --inputmzml "/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML" --qc 100
 ```
 
+# Resuming the pipeline (Command line interface)
 
+Nextflow provides a powerful command line interface for the execution pipelines. 
+
+As we have seen before a general way of running Nextflow looks like:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nextflow [options] COMMAND [arg...]
+```
+
+We often run the workflow using 
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nextflow main_18.nf --inputmzml "/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML" --qc 100
+```
+
+However, when Nextflow is run it will automatically use its powerful `run` command. So the above code can actually be run using:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nextflow run main_18.nf --inputmzml "/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML" --qc 100
+```
+
+The `run` command has several options that can be seen [here](https://www.nextflow.io/docs/latest/cli.html#run)
+
+One the most important option is `resume`. This option executes the script using the cached results, useful to continue executions that was stopped by an error.
+
+So if we imagine the above pipeline fails for example because of an error in one of the processes, after resolving the error, we can run the workflow using:
+
+```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nextflow run main_18.nf -resume --inputmzml "/crex/proj/uppmax2022-2-10/metabolomics/mzMLData/*.mzML" --qc 100
+```
+
+Using this command, the already successfully executed processes will not be rerun. So the pipeline will continue from where it failed last time.
+
+You can see the full description of Nextflow CLI [here](https://www.nextflow.io/docs/latest/cli.html)
 
 # Nextflow assigments
 

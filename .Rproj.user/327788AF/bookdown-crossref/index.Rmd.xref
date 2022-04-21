@@ -31,6 +31,7 @@ h2:two-processes Two processes
 h2:two-processes-including-collect Two processes including collect
 h2:two-processes-collect-accept-parameters-from-the-user Two processes, collect, accept parameters from the user
 h2:three-processes Three processes
+h1:resuming-the-pipeline-command-line-interface Resuming the pipeline (Command line interface)
 h1:nextflow-assigments Nextflow assigments
 h2:set-up-the-environment Set up the environment
 h2:part-1 Part 1
