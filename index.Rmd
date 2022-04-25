@@ -1297,6 +1297,7 @@ cd xcms_pipeline
 ```
 
 ```{bash, attr.source='.numberLines',eval=FALSE, class.source="nohide"}
+nextflow main.nf -profile uppmax --project "uppmax2022-2-10" --clusterOptions "-M snowy"
 ```
 
 You can open another terminal window and ssh to Uppmax and use jobinfo to see whether your jobs are running or not! If you realized that won’t run for some steps, it might be because of RAM, CPU, or running time. In the nextflow.config, you can change these parameters!
